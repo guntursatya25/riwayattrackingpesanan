@@ -8,7 +8,7 @@
     Pelacakan Progres Pesanan
 @endsection
 @section('isi')
-    {{-- @livewire('track-order-index') --}}
+    @livewire('tracking-pesanan-index')
 @endsection
 
 @section('jsthis')

@@ -5,7 +5,7 @@
     <div class="card-content pb-4">
         <div class="recent-message d-flex px-3 py-1">
             <div class="avatar avatar-lg">
-                <img src="./assets/compiled/jpg/4.jpg" />
+                <img src="{{ asset('assets/index/compiled/jpg/4.jpg') }}" />
             </div>
             <div class="name ms-3">
                 <h5 class="mb-1">Firman Anggara</h5>

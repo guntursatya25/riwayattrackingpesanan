@@ -2,7 +2,7 @@
     <div class="header-top">
         <div class="container">
             <div class="logo">
-                <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" /></a>
+                <a href="index.html"><img src="{{ asset('assets/index/compiled/svg/logo.svg') }}" alt="Logo" /></a>
             </div>
             @if (Auth::check())
                 <div class="header-top-right">
@@ -11,7 +11,7 @@
                             class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="avatar avatar-md2">
-                                <img src="./assets/compiled/jpg/1.jpg" alt="Avatar" />
+                                <img src="{{ asset('assets/index/compiled/jpg/1.jpg') }}" alt="Avatar" />
                             </div>
                             <div class="text">
                                 <h6 class="user-dropdown-name">{{ Auth::user()->name }}</h6>

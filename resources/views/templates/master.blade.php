@@ -47,11 +47,10 @@
     <script src="{{ asset('assets/index/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('assets/index/static/js/pages/horizontal-layout.js') }}"></script>
     <script src="{{ asset('assets/index/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="assets/compiled/js/app.js"></script>
-    <script src="{{ }}"></script>
+    <script src="{{ asset('assets/index/compiled/js/app.js') }}"></script>
 
-    <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="assets/static/js/pages/dashboard.js"></script>
+    <script src="{{ asset('assets/index/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/index/static/js/pages/dashboard.js') }}"></script>
     @yield('jsthis')
     @livewireScripts
     <script>
