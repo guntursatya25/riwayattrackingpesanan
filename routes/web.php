@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(AuthController::class)->group(function (){
+Route::get('/login','index')->name('login');
+Route::get('/register','register')->name('register');
+Route::get('/logout','logout')->name('logout');
+Route::post('/login','actionLogin')->name('actionLogin');
+Route::post('/register','actionRegister')->name('actinoRegister');
+
+});
+
 Route::get('/', function () {
     return view('index');
 });
 Route::get('/admin', function () {
     return view('admin.admin');
 });
+

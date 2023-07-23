@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV FIRMOS</title>
+    <title>Login - CV FIRMOS</title>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
     <link rel="shortcut icon"
@@ -12,66 +12,51 @@
         type="image/png" />
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/app-dark.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/auth.css') }}" />
 </head>
 
 <body>
-    <script src="{{ asset('assets/index/static/js/initTheme.js') }}"></script>
-    <div id="app">
-        <div id="sidebar">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header position-relative">
-                    @include('admin.templates.hlogo')
-                </div>
+    <script src="assets/static/js/initTheme.js"></script>
+    <div id="auth" class="d-flex align-items-center justify-content-center">
+        <div class="row">
+            <div class="c ">
 
-                <div class="sidebar-menu">
-                    @include('admin.templates.sidebar')
-                </div>
-            </div>
-        </div>
-        <div id="main" class="layout-navbar navbar-fixed">
-            <header>
-                <nav class="navbar navbar-expand navbar-light navbar-top">
-                    @include('admin.templates.header')
-                </nav>
-            </header>
-            <div id="main-content">
-                <div class="page-heading">
-                    <div class="page-title">
-                        <div class="row">
-                            <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Vertical Layout with Navbar</h3>
-                                <p class="text-subtitle text-muted">
-                                    Navbar will appear on the top of the page.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="index.html">Dashboard</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Layout Vertical Navbar
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
+                <h1 class="auth-title">Log in.</h1>
+                <form action="{{ route('actionLogin') }}" method="POST">
+                    @csrf
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="text" name="username" class="form-control form-control-xl"
+                            placeholder="Username" />
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
                         </div>
                     </div>
-                    <section class="section">
-                        @yield('konten')
-                    </section>
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="password" name="password" class="form-control form-control-xl"
+                            placeholder="Password" />
+                        <div class="form-control-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-lg d-flex align-items-end">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" />
+                        <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                            Keep me logged in
+                        </label>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
+                        Log in
+                    </button>
+                </form>
+                <div class="text-center mt-5 text-lg fs-4">
+                    <p class="text-gray-600">
+                        Don't have an account?
+                        <a href="{{ route('register') }}" class="font-bold">Sign up</a>.
+                    </p>
                 </div>
             </div>
-            <footer>
-                @include('admin.templates.footer')
-            </footer>
         </div>
     </div>
-    <script src="{{ asset('assets/index/static/js/components/dark.js') }}"></script>
-    <script src="{{ asset('assets/index/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-
-    <script src="{{ asset('assets/index/compiled/js/app.js') }}"></script>
 </body>
 
 </html>
