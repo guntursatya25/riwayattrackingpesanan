@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('pesanan',25);
             $table->string('jumlah',25);
             $table->string('trackorder',50);
-            $table->enum('status', ['done', 'proses']);
+            $table->enum('status', ['done', 'proses','kirim']);
             $table->timestamps();
         });
     }
