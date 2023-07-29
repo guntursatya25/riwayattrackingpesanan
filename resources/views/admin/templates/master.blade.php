@@ -12,6 +12,7 @@
         type="image/png" />
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/app-dark.css') }}" />
+    @yield('cssthis')
 </head>
 
 <body>
@@ -37,31 +38,13 @@
             <div id="main-content">
                 <div class="page-heading">
                     <div class="page-title">
-                        <div class="row">
-                            <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Vertical Layout with Navbar</h3>
-                                <p class="text-subtitle text-muted">
-                                    Navbar will appear on the top of the page.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="index.html">Dashboard</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">
-                                            Layout Vertical Navbar
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
+                        @yield('upkonten')
                     </div>
                     <section class="section">
                         @yield('konten')
                     </section>
                 </div>
+                <div>@yield('modal')</div>
             </div>
             <footer>
                 @include('admin.templates.footer')
@@ -72,6 +55,8 @@
     <script src="{{ asset('assets/index/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
     <script src="{{ asset('assets/index/compiled/js/app.js') }}"></script>
+    @yield('jscript')
+    @stack('scripts')
 </body>
 
 </html>
