@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/iconly.css') }}" />
+    @yield('cssthis')
     @livewireStyles
 
 </head>

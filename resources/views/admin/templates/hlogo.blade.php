@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center">
     <div class="logo">
-        <a href="index.html">
+        <a href="{{ route('index') }}">
             {{-- <img src="./assets/compiled/svg/logo.svg" alt="Logo"
                                     srcset="" /> --}}
             <span class="fs-5">CV FIRMOS</span>

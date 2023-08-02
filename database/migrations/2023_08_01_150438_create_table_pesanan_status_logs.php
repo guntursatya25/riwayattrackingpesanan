@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('PesananStatusLogs', function (Blueprint $table) {
             $table->id();
             $table->integer('pesanan_id');
-            $table->string('riwayat');
+            $table->string('qtys')->nullable();
+            $table->string('riwayat')->nullable();
             $table->timestamps();
+
         });
     }
 

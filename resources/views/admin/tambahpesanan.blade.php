@@ -13,10 +13,10 @@
             <div class="row">
                 <div class="col-12">
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
-                                    aria-hidden="true">&times;</span></button>
+                        <div class="alert alert-success alert-dismissible show fade">
                             <strong>{{ $message }}</strong>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     <div class="card">
@@ -26,7 +26,8 @@
                             </h4>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form action=" " method="POST" id="pesananForm" class="">
+                                    <form action="{{ route('pesanan.store') }}" method="POST" id="pesananForm"
+                                        class="">
                                         @csrf
                                         <h5 class="card-subtitle">Pelanggan</h5>
                                         <div class="row g-3">
@@ -102,8 +103,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 @error('itemData')
-                                                    <div class="alert alert-danger alert-dismissible fade show"
-                                                        role="alert">
+                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                                         <button type="button" class="close" data-dismiss="alert"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PesananLogs;
 
 class Pesanan extends Model
 {
@@ -22,4 +23,8 @@ class Pesanan extends Model
         'track_order',
         'jumlah'
     ];
+    public function PesananLogs()
+    {
+        return $this->hasMany(PesananLogs::class, 'pesanan_id');
+    }
 }

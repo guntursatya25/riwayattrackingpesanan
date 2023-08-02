@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Pesanan;
-use Illuminate\Http\Request;
 
 class ModalTracking extends Component
 {
@@ -35,27 +34,30 @@ class ModalTracking extends Component
 
         $dataku->save();
         
-        // $fullUrl = request()->url();
-
-        // $url2 = url()->current();
- 
         // $this->dispatchBrowserEvent('close-modal');
-        // return view('admin.trackingorder'); // Melakukan refresh atau reload halaman
-        // return redirect()->to('url()->full();');
-        // return redirect()->to('/admin/trackingorder?page=' . $this->currentPage());
-// return dd($this->urlcurr);
+        // return dd($this->urlcurr);
         return redirect($this->urlcurr)->with(['success' => 'Data Berhasil Disimpan']);
     }
     
-    public function statusModal($id){
+    public function statusModal($id,$urlcu){
         $this->dispatchBrowserEvent('show-status-modal');
+        $this->urlcurr= $urlcu;
+
+        // return dd($this->urlcurr);
     }
 
-    public function deleteModal($id){
+    public function deleteModal($id,$urlcu){
         $this->dispatchBrowserEvent('show-delete-modal');
         $pesanan = Pesanan::where('id', $id)->first();
         $this->view_id = $id;
         $this->no_pesanan = $pesanan->no_pesanan;
+        $this->urlcurr= $urlcu;
+    }
+
+    public function actionDelete(){
+        $pesanan = Pesanan::find($this->view_id );
+        $pesanan->delete();
+        return redirect($this->urlcurr)->with(['success' => 'Data Berhasil Dihapus ']);
     }
 
     public function showViewModal($id,$urlcu)
@@ -65,8 +67,7 @@ class ModalTracking extends Component
         $pesanan = Pesanan::where('id', $id)->first();
         $this->view_id = $id;
         // $this->view_idk = $pesanan->id;
-        // return dd($urlcu);
-
+ 
         $this->nama = $pesanan->nama_pelanggan;
         $this->email = $pesanan->email;
         $this->no_pesanan = $pesanan->no_pesanan;

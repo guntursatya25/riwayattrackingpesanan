@@ -24,7 +24,6 @@
                         <rect width="100%" height="100%" fill="#007aff"></rect>
                     </svg>
                     <strong class="me-auto">Berhasil</strong>
-                    {{-- <small>11 mins ago</small> --}}
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">

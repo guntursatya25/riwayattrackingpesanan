@@ -1,5 +1,7 @@
 @extends('templates.master')
 
+@section('cssthis')
+@endsection
 @section('title')
     Pelacakan Progres Pesanan - CV FIRMOS
 @endsection

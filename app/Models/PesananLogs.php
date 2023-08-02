@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class PesananLogs extends Model
 {
     use HasFactory;
-    protected $table = 'PesananStatusLogs';
+    protected $table = 'pesananstatuslogs';
     protected $primaryKey = 'id';
-
+    protected $fillable = [
+        'pesanan_id',
+        'qtys',
+        'riwayat',
+    ];
     public function pesanan()
     {
         return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id');
     }
+    
 }

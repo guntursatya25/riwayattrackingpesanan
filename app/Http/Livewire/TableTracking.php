@@ -9,32 +9,28 @@ class TableTracking extends Component
 {
     public $fullUrl;
     protected $listeners = [
-        'openModals','viewDetails'
+        'openModals'
     ];
 
     public function mount(Request $request){
         $this->fullUrl = $request->fullUrl();
-        // return dd($this->fullUrl);
     }
+
     public function openModals($id, $action){
         if ($action == 'delete') {
-            $this->emit('deleteModal', $id);
+            $this->emit('deleteModal', $id, $this->fullUrl);
         }
         else if($action == 'status'){
-            $this->emit('statusModal', $id);
+            $this->emit('statusModal', $id, $this->fullUrl);
         }
         else if($action == 'edit'){
             $this->emit('showViewModal', $id, $this->fullUrl);
         }
-        // return dd($this->fullUrl);
-
     }
     
     public function render(Request $request)
     {
-        // $fullUrl = $request->fullUrl();
-        // return dd($fullUrl);
-        $pesanan = Pesanan::where('status','proses')->orderBy('created_at', 'desc')->paginate(10);
+        $pesanan = Pesanan::where('status','proses')->orderBy('created_at', 'desc')->paginate(5);
         return view('livewire.table-tracking', compact('pesanan'));
     }
 }

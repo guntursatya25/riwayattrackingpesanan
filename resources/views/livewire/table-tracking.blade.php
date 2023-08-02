@@ -31,10 +31,13 @@
                                 data-bs-toggle="modal" data-bs-target="#statusModal{{ $row->id }}">
                                 Status
                             </button> --}}
-                            <button type="button" name="modalViewStatus"
+                            <a href="{{ route('tambahstatus', ['id' => $row->id]) }}"
+                                class="btn waves-effect waves-light btn-sm btn-rounded btn-success">Status</a>
+
+                            {{-- <button type="button" name="modalViewStatus"
                                 class="btn waves-effect waves-light btn-sm btn-rounded btn-success"
                                 wire:click="openModals('{{ $row->id }}','status')"
-                                wire:loading.attr="disabled">Status</button>
+                                wire:loading.attr="disabled">Status</button> --}}
                             <button type="button" name="modalViewdelete"
                                 class="btn waves-effect waves-light btn-sm btn-rounded btn-danger"
                                 wire:click="openModals('{{ $row->id }}','delete')"
