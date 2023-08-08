@@ -43,32 +43,42 @@
                                 $jumlahku = explode(',', $jumlah);
                             @endphp
 
-                            <div id="kolompesanan" class="col-6">
-                                <label for="pesanan">Pesanan</label>
-                                @foreach ($pesananku as $item)
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <input type="text" name="pesananku[]" id="pesanan" class="form-control"
-                                                value="{{ $item }}">
-                                        </div>
+                            <div class="col-12">
+                                <div wire:ignore.self class="row">
+                                    <div id="kolompesanan" class="col-6">
+                                        <label for="pesanan">Pesanan</label>
+                                        @foreach ($pesananku as $item)
+                                            <div class="row mb-2 ulangin">
+                                                <div class="col">
+                                                    <input type="text" name="pesananku[]" id="pesanan"
+                                                        class="form-control" value="{{ $item }}">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
-                            </div>
-                            <div id="kolomjumlah" class="col-6">
-                                <label for="jumlah">Jumlah</label>
-                                @foreach ($jumlahku as $item)
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <input type="text" name="jumlahku[]" id="pesanan" class="form-control"
-                                                value="{{ $item }}">
-                                        </div>
+                                    <div id="kolomjumlah" class="col-6">
+                                        <label for="jumlah">Jumlah</label>
+                                        @foreach ($jumlahku as $item)
+                                            <div class="row mb-2 ulangin">
+                                                <div class="col">
+                                                    <input type="text" name="jumlahku[]" id="pesanan"
+                                                        class="form-control" value="{{ $item }}">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
+
+                                </div>
                             </div>
 
+
                             <div class="col d-flex justify-content-center">
-                                <button type="button" onclick="addItems()" class="btn btn-secondary btn-sm"><i
-                                        class="bi bi-plus"></i></button>
+                                <button type="button" onclick="addItems()" class="btn btn-secondary btn-sm">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                                <button class="btn btn-danger ms-2" type="button" onclick="removeItem()">
+                                    <i class="bi bi-dash"></i>
+                                </button>
                             </div>
 
                             <input type="hidden" class="form-control" wire:model="hiddenInputPesanan"
@@ -76,10 +86,10 @@
                             <input type="hidden" id="hiddenInputJumlah" class="form-control"
                                 wire:model="hiddenInputJumlah" name="hiddenJumlah">
 
-                            <input type="text" class="form-control" wire:model="hiddenInputPesanan"
+                            {{-- <input type="text" class="form-control" wire:model="hiddenInputPesanan"
                                 id="hiddenInputPesanan" name="hiddenPesanan">
                             <input id="hiddenInputJumlah" class="form-control" type="text"
-                                wire:model="hiddenInputJumlah" name="hiddenJumlah">
+                                wire:model="hiddenInputJumlah" name="hiddenJumlah"> --}}
 
                             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                             <button class="btn btn-primary btn-sm"" onclick="combineValues()" type="submit"

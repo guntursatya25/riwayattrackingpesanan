@@ -10,44 +10,37 @@ class TrackingPesananIndex extends Component
 {
     protected $updatesQueryString = ['searchTerm'];
     public $searchTerm = '';
-    public $hasil;
+    public $hasil = '';
     public $showResults = false; 
     public $showAll = false;
     public $linkText = 'Lihat riwayat selengkapnya';
     // public $showAll = false;
 
-    public function toggleTables()
-    {
-        $this->showAll = !$this->showAll;
-        $this->linkText = $this->showAll ? 'Sembunyikan selengkapnya' : 'Lihat riwayat selengkapnya';
+    // public function toggleTables()
+    // {
+    //     $this->showAll = !$this->showAll;
+    //     $this->linkText = $this->showAll ? 'Sembunyikan selengkapnya' : 'Lihat riwayat selengkapnya';
 
-    } 
+    // } 
 
     public function search()
     {
         // Reset tabel state sebelum melakukan pencarian baru
         $this->showResults = false;
         $this->hasil = null;
+        $trimmedSearchTerm = trim($this->searchTerm);
 
-        if (empty($this->searchTerm)) {
+        if (empty($trimmedSearchTerm)) {
             $this->hasil = null;
         } else {
-                $this->hasil = Pesanan::with('PesananLogs')->where('no_pesanan', '=', $this->searchTerm)->get();
+                $this->hasil = Pesanan::with('PesananLogs')->where('no_pesanan', '=', $trimmedSearchTerm)->get();
 
-                if ($this->hasil == null) {
-                   
+                if ($this->hasil->isEmpty()) {
                     $this->hasil = null;
                 }
         }
         $this->showResults = true;
-        // return dd($this->dataPerHari);
-
-
-    }
-    public function showResults()
-    {
-        // Atur $showResults menjadi true agar hasil pencarian ditampilkan
-        $this->showResults = true;
+ 
     }
 
     public function render()

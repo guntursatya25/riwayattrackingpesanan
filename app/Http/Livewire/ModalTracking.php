@@ -59,14 +59,13 @@ class ModalTracking extends Component
         $pesanan->delete();
         return redirect($this->urlcurr)->with(['success' => 'Data Berhasil Dihapus ']);
     }
-
+     
     public function showViewModal($id,$urlcu)
     {
         $this->dispatchBrowserEvent('show-view-modal');
  
         $pesanan = Pesanan::where('id', $id)->first();
         $this->view_id = $id;
-        // $this->view_idk = $pesanan->id;
  
         $this->nama = $pesanan->nama_pelanggan;
         $this->email = $pesanan->email;

@@ -50,15 +50,15 @@ class AdminController extends Controller
     }
 
     public function actiontambahstatus(Request $request){
-        $request->validate([
-            'qty_hasil' => ['unique:pesananstatuslogs,qtys'],
-            'tahap_hasil' => ['unique:pesananstatuslogs,riwayat'],
-        ],
-        [
-            'qty_hasil.unique' => 'Data tidak diperbarui',
-            'tahap_hasil.unique' => 'Data tidak diperbarui'
-        ]
-    );
+    //     $request->validate([
+    //         'qty_hasil' => ['unique:pesananstatuslogs,qtys'],
+    //         'tahap_hasil' => ['unique:pesananstatuslogs,riwayat'],
+    //     ],
+    //     [
+    //         'qty_hasil.unique' => 'Data tidak diperbarui',
+    //         'tahap_hasil.unique' => 'Data tidak diperbarui'
+    //     ]
+    // );
         $pesanan = Pesanan::find($request->idnya);
         $riwayat = new PesananLogs;
         $riwayat->pesanan()->associate($pesanan);

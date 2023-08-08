@@ -119,57 +119,59 @@
                     <div class="col-2">
                         <div class="form-group">
                             <label for="tahap">Tahap</label>
-                            @if ($pesanan->PesananLogs->isNotEmpty())
-                                <div class="qtys_div">
-                                    @php
-                                        $logsSorted = $pesanan->PesananLogs->sortByDesc('created_at');
-                                        $logTerbaru = $logsSorted->first();
-                                        $riwayat = explode(',', $logTerbaru['riwayat']);
-                                    @endphp
 
-                                    @foreach ($riwayat as $rowww)
-                                        <input value="{{ $rowww }}" type="text"
-                                            class="form-control mb-2 tahap_input" pattern="[A-Za-z0-9 ]+"
-                                            title="Masukkan angka dan huruf saja">
-                                    @endforeach
+                            {{-- {{ now()->format('H:i:s') }} --}}
+                            @for ($i = 1; $i <= count($qty); $i++)
+                                <div class="qtys_div[{{ $i }}]">
+                                    @if ($pesanan->PesananLogs->isNotEmpty())
+                                        @php
+                                            $logsSorted = $pesanan->PesananLogs->sortByDesc('created_at');
+                                            $logTerbaru = $logsSorted->first();
+                                            $riwayat = explode(',', $logTerbaru['riwayat']);
+                                        @endphp
+
+                                        @if ($i <= count($riwayat))
+                                            <input value="{{ $riwayat[$i - 1] }}" type="text"
+                                                class="form-control mb-2 tahap_input" pattern="[A-Za-z0-9 ]+"
+                                                title="Masukkan angka dan huruf saja">
+                                        @else
+                                            <input value="" type="text" class="form-control mb-2 tahap_input"
+                                                pattern="[A-Za-z0-9 ]+" title="Masukkan angka dan huruf saja">
+                                        @endif
+                                    @else
+                                        <input value="" type="text" class="form-control mb-2 tahap_input"
+                                            pattern="[A-Za-z0-9 ]+" title="Masukkan angka dan huruf saja">
+                                    @endif
                                 </div>
-                            @else
-                                @for ($i = 1; $i <= count($qty); $i++)
-                                    <div class="tahapin_div[{{ $i }}]">
-                                        <input value="" type="text" id="tahap"
-                                            class="form-control mb-2 tahap_input" pattern="[A-Za-z0-9 ]+"
-                                            title="Masukkan angka dan huruf saja">
-                                    </div>
-                                @endfor
-                            @endif
+                            @endfor
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="form-group">
                             <label for="qtys">Jumlah</label>
-                            @if ($pesanan->PesananLogs->isNotEmpty())
-                                <div class="qtys_div">
-                                    @php
-                                        $logsSorted = $pesanan->PesananLogs->sortByDesc('created_at');
-                                        $logTerbaru = $logsSorted->first();
-                                        $qtyss = explode(',', $logTerbaru['qtys']);
-                                    @endphp
+                            @for ($i = 1; $i <= count($qty); $i++)
+                                <div class="qtys_div[{{ $i }}]">
+                                    @if ($pesanan->PesananLogs->isNotEmpty())
+                                        @php
+                                            $logsSorted = $pesanan->PesananLogs->sortByDesc('created_at');
+                                            $logTerbaru = $logsSorted->first();
+                                            $qtyss = explode(',', $logTerbaru['qtys']);
+                                        @endphp
 
-                                    @foreach ($qtyss as $rowww)
-                                        <input value="{{ $rowww }}" type="text"
-                                            class="form-control mb-2 qty_input" pattern="[0-9]+"
-                                            title="Masukkan angka saja">
-                                    @endforeach
-                                </div>
-                            @else
-                                @for ($i = 1; $i <= count($qty); $i++)
-                                    <div class="qtys_div[{{ $i }}]">
+                                        @if ($i <= count($qtyss))
+                                            <input value="{{ $qtyss[$i - 1] }}" type="text"
+                                                class="form-control mb-2 qty_input" pattern="[0-9]+"
+                                                title="Masukkan angka saja">
+                                        @else
+                                            <input value="" type="text" class="form-control mb-2 qty_input"
+                                                pattern="[0-9]+" title="Masukkan angka saja">
+                                        @endif
+                                    @else
                                         <input value="" type="text" class="form-control mb-2 qty_input"
                                             pattern="[0-9]+" title="Masukkan angka saja">
-                                    </div>
-                                @endfor
-                            @endif
-
+                                    @endif
+                                </div>
+                            @endfor
                         </div>
                     </div>
                     <div class="col-2">
@@ -179,14 +181,6 @@
                                 class="btn icon icon-left btn-primary btn-sm">
                                 <i class="bi bi-check"></i> Save All
                             </button>
-                            {{-- <button onclick="getQty()" name="btn_submit" type="submit" href="#"
-                                class="btn icon icon-left btn-primary btn-sm">
-                                <i class="bi bi-check"></i> Save Qty
-                            </button>
-                            <button onclick="getTahap()" name="btn_submit" type="submit" href="#"
-                                class="btn icon icon-left btn-primary btn-sm">
-                                <i class="bi bi-check"></i> Save Tahap
-                            </button> --}}
                         </div>
                     </div>
                     <input type="hidden" class="form-control mb-2" name="idnya" value="{{ $pesanan->id }}">
@@ -194,9 +188,8 @@
                     <input type="hidden" class="form-control mb-2" name="qty_hasil" id="qty_hasil">
                 </form>
                 <div>
-                    {{-- <button class="btn btn-primary" onclick="getAllData()">Get All</button>
-                    <button class="btn btn-primary" onclick="getQty()">Qty</button>
-                    <button class="btn btn-primary" onclick="getTahap()">Get Tahap</button> --}}
+                    {{-- <button class="btn btn-primary" onclick="getAllData()">Get All</button> --}}
+
                 </div>
             </div>
         </div>
@@ -211,40 +204,6 @@
         let qtyInputs = document.getElementsByClassName('qty_input');
         let tahapInputs = document.getElementsByClassName('tahap_input');
 
-        function getQty() {
-            let qtyValue = '';
-            for (let i = 0; i < qtyInputs.length; i++) {
-                let currentQtyValue = qtyInputs[i].value.trim();
-                let currentTahapValue = tahapInputs[i].value.trim();
-
-                if (currentQtyValue === '') {
-                    currentQtyValue = '0';
-                }
-
-                qtyValue += currentQtyValue + ',';
-            }
-
-            qtyValue = qtyValue.slice(0, -1);
-
-            qtyinputinhidden.value = qtyValue;
-        }
-
-        function getTahap() {
-            let tahapValue = '';
-            for (let i = 0; i < tahapInputs.length; i++) {
-                let currentTahapValue = tahapInputs[i].value.trim();
-
-                if (currentTahapValue === '') {
-                    currentTahapValue = '0';
-                }
-
-                tahapValue += currentTahapValue + ',';
-            }
-
-            tahapValue = tahapValue.slice(0, -1);
-
-            tahapinputhidden.value = tahapValue;
-        }
 
         function getAllData() {
 

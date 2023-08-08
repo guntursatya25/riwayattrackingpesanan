@@ -20,8 +20,7 @@ class Pesanan extends Model
         'address',
         'pesanan',
         'status',
-        'track_order',
-        'jumlah'
+         'jumlah'
     ];
     public function PesananLogs()
     {

@@ -11,7 +11,7 @@
 @section('upkonten')
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Tracking Riwayat Pesanan</h3>
+            <h3>Riwayat Status Pesanan</h3>
         </div>
     </div>
     @if ($message = Session::get('success'))
@@ -53,18 +53,29 @@
 @section('jscript')
     <script>
         const myToastEl = document.getElementById('tosku')
-        myToastEl.addEventListener('shown.bs.toast', () => {
-            // do something...
-        })
+        myToastEl.addEventListener('shown.bs.toast', () => {})
+
+        function removeItem() {
+            var kolomPesanan = document.getElementById("kolompesanan");
+            var kolomJumlah = document.getElementById("kolomjumlah");
+
+            var lastPesananRow = kolomPesanan.querySelector('.ulangin:last-of-type');
+            var lastJumlahRow = kolomJumlah.querySelector('.ulangin:last-of-type');
+
+            kolomPesanan.removeChild(lastPesananRow);
+            kolomJumlah.removeChild(lastJumlahRow);
+            input1Values.pop();
+            input2Values.pop();
+        }
 
         function addItems() {
             var kolomPesanan = document.getElementById("kolompesanan");
             var kolomJumlah = document.getElementById("kolomjumlah");
 
             var orderItem = document.createElement("div");
-            orderItem.setAttribute("class", "row mb-2");
+            orderItem.setAttribute("class", "row mb-2 ulangin");
             var orderItem2 = document.createElement("div");
-            orderItem2.setAttribute("class", "row mb-2");
+            orderItem2.setAttribute("class", "row mb-2 ulangin");
 
             var html1 = `<div class="col"><input type="text" name="jumlahku[]" id="pesanan" class="form-control"></div>`;
             var html2 = `<div class="col"><input type="text" name="pesananku[]" id="pesanan" class="form-control"></div>`;
@@ -82,13 +93,11 @@
 
             var input1Values = [];
             var input2Values = [];
-            var data1 = ""
 
             for (var i = 0; i < input1Elements.length; i++) {
                 var itemPesanan = input1Elements[i].value;
                 var quantityInput = input2Elements[i].value;
 
-                data1 += quantityInput + ",";
                 input1Values.push(itemPesanan);
                 input2Values.push(quantityInput);
             }

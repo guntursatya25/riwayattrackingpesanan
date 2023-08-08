@@ -31,7 +31,6 @@
     </div>
 
     <div wire:ignore.self>
-
         @if ($showResults && $hasil)
             @foreach ($hasil as $pesanan)
                 <div class="row">
@@ -55,7 +54,7 @@
                                 </div>
 
                                 <div class="row justify-content-center">
-                                    <div class="col-9">
+                                    <div class="col">
                                         <div class="table-responsive">
                                             <table class="table table-hover">
                                                 <thead>
@@ -85,57 +84,65 @@
 
 
                                 <h3>Status</h3>
+                                @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
+                                    <div class="accordion accordion-flush" id="hasilriwayat{{ $index }}">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ $index }}" aria-expanded="false"
+                                                    aria-controls="flush-collapseOne">
+                                                    Tanggal: {{ $pesananLog->created_at->format('d-m-Y') }}
+                                                    Waktu: {{ $pesananLog->created_at->format('H:i') }}
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{ $index }}" class="accordion-collapse collapse"
+                                                data-bs-parent="#hasilriwayat{{ $index }}">
+                                                <div class="accordion-body">
+                                                    @php
+                                                        $qtys = explode(',', $pesananLog->qtys);
+                                                        $status = explode(',', $pesananLog->riwayat);
+                                                    @endphp
+                                                    <table class="table table-hover   ">
 
-                                @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $pesananLog)
-                                    <div class="table-responsive {{ !$showAll && !$loop->first ? 'd-none' : '' }}">
-
-
-                                        <table class="table table-hover table_history data-table ">
-                                            Tanggal: {{ $pesananLog->created_at->format('d-m-Y') }}
-
-
-                                            Waktu: {{ $pesananLog->created_at->format('H:i') }}
-                                            @php
-                                                $qtys = explode(',', $pesananLog->qtys);
-                                                $status = explode(',', $pesananLog->riwayat);
-                                            @endphp
-
-                                            <thead>
-                                                <th>Pesanan</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Jumlah</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        @foreach ($items as $iiiiiiiii)
-                                                            <p>{{ $iiiiiiiii }}</p>
-                                                        @endforeach
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @foreach ($status as $stat)
-                                                            <p>
-                                                                {{ $stat }}
-                                                            </p>
-                                                        @endforeach
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @foreach ($qtys as $qty)
-                                                            <p>
-                                                                {{ $qty }}
-                                                            </p>
-                                                        @endforeach
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        <thead>
+                                                            <th>Pesanan</th>
+                                                            <th class="text-center">Status</th>
+                                                            <th class="text-center">Jumlah</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    @foreach ($items as $iiiiiiiii)
+                                                                        <p>{{ $iiiiiiiii }}</p>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @foreach ($status as $stat)
+                                                                        <p>
+                                                                            {{ $stat }}
+                                                                        </p>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @foreach ($qtys as $qty)
+                                                                        <p>
+                                                                            {{ $qty }}
+                                                                        </p>
+                                                                    @endforeach
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
 
-
-                                @if (count($pesanan->PesananLogs) > 1)
+                                {{-- @if (count($pesanan->PesananLogs) > 1)
                                     <a href="#hasil" wire:click="toggleTables">{{ $linkText }}</a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
