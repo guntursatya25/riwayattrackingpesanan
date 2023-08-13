@@ -1,18 +1,4 @@
-@extends('admin.templates.master')
-@section('cssthis')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
-@endsection
-@section('konten')
-    <div class="card">
-        <div class="card-body">
-            {{ $dataTable->table() }}
-        </div>
-    </div>
-@endsection
-@push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
-@section('jscript')
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
-@endsection
+[{"id":3,"pesanan_id":15,"rating":5,"komen":"Bagus","created_at":"2023-08-13T11:17:54.000000Z","updated_at":"2023-08-13T11:17:54.000000Z","pesanan":{"id":15,"no_pesanan":"FIR20230015","nama_pelanggan":"Guntur","email":"admin@admin.com","whatsapp":"0891283212","address":"Karangnanas<br
+    \ />\r\nJateng","pesanan":"Design,Pamflet,Banner","jumlah":"100,10,1","status":"proses","created_at":"2023-08-01T04:53:03.000000Z","updated_at":"2023-08-08T13:33:58.000000Z"}},{"id":1,"pesanan_id":14,"rating":3,"komen":"Bagus
+bingitzz","created_at":"2023-08-13T09:53:33.000000Z","updated_at":"2023-08-13T09:53:33.000000Z","pesanan":{"id":14,"no_pesanan":"FIR20230014","nama_pelanggan":"Anin
+Najma","email":null,"whatsapp":null,"address":"Brebes","pesanan":"Berebere,Kur,Cerea","jumlah":"1111,500,12","status":"proses","created_at":"2023-07-09T10:55:25.000000Z","updated_at":"2023-

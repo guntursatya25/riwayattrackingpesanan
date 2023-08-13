@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Pesanan;
-use App\Models\PesananLogs;
+use App\Models\Ulasan;
 use Livewire\Component;
 
 class TrackingPesananIndex extends Component
@@ -12,35 +12,29 @@ class TrackingPesananIndex extends Component
     public $searchTerm = '';
     public $hasil = '';
     public $showResults = false; 
-    public $showAll = false;
-    public $linkText = 'Lihat riwayat selengkapnya';
-    // public $showAll = false;
-
-    // public function toggleTables()
-    // {
-    //     $this->showAll = !$this->showAll;
-    //     $this->linkText = $this->showAll ? 'Sembunyikan selengkapnya' : 'Lihat riwayat selengkapnya';
-
-    // } 
-
+    public $idnya, $logstatus;
+    
     public function search()
     {
-        // Reset tabel state sebelum melakukan pencarian baru
         $this->showResults = false;
         $this->hasil = null;
-        $trimmedSearchTerm = trim($this->searchTerm);
-
-        if (empty($trimmedSearchTerm)) {
+        $trimmed = trim($this->searchTerm);
+        if (empty($trimmed)) {
             $this->hasil = null;
         } else {
-                $this->hasil = Pesanan::with('PesananLogs')->where('no_pesanan', '=', $trimmedSearchTerm)->get();
-
+                $this->hasil = Pesanan::with('PesananLogs')->where('no_pesanan', '=', $trimmed)->get();
+                          
                 if ($this->hasil->isEmpty()) {
                     $this->hasil = null;
+                }else {
+                    $this->idnya = $this->hasil->first()->id;
+                    $this->logstatus = Ulasan::where('pesanan_id', $this->idnya)->first();
+                    $this->emit('resetDatarating');
+
+                    $this->emit('dataTerkirim', $this->idnya);
                 }
         }
         $this->showResults = true;
- 
     }
 
     public function render()

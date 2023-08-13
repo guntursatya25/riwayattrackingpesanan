@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pesananstatuslogs', function (Blueprint $table) {
+        Schema::create('ulasan', function (Blueprint $table) {
             $table->id();
-            $table->integer('pesanan_id');
-            $table->string('qtys')->nullable();
-            $table->string('riwayat')->nullable();
+            $table->integer('pesanan_id')->unique();
+            $table->unsignedInteger('rating'); 
+            $table->text('komen')->nullable();
             $table->timestamps();
-
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('PesananStatusLogs');
+        Schema::dropIfExists('ulasan');
     }
 };

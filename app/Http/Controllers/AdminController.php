@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pesanan;
-use App\DataTables\PesananDataTable;
 use App\Models\PesananLogs;
+use App\Models\Ulasan;
 
 class AdminController extends Controller
 {
     public function tambah(){
         return view('admin.tambahpesanan');
+    } 
+    public function profil(){
+        return view('admin.myprofile');
+    } 
+    public function admin(){
+        $pesanan= Pesanan::all();
+        $jumlahProses = $pesanan->where('status', 'proses')->count();
+        $jumlahDikirim = $pesanan->where('status', 'dikirim')->count();
+        $jumlahSelesai = $pesanan->where('status', 'selesai')->count();
+        $ulasan = Ulasan::with('Pesanan')->latest()->limit(3)->get();
+
+        return view('admin.admin', compact('jumlahProses','jumlahDikirim','jumlahSelesai','ulasan'));
     } 
 
     public function listtracking(){

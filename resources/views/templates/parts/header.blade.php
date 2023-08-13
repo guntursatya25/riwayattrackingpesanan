@@ -2,7 +2,8 @@
     <div class="header-top">
         <div class="container">
             <div class="logo">
-                <a href="index.html"><img src="{{ asset('assets/index/compiled/svg/logo.svg') }}" alt="Logo" /></a>
+                {{-- <a href="{{ route('index') }}"><img src="{{ asset('assets/index/compiled/svg/logo.svg') }}" alt="Logo" /></a> --}}
+                <a href="{{ route('index') }}"><img src="{{ asset('assets/gambar/logofirmos.png') }}" alt="Logo" /></a>
             </div>
             @if (Auth::check())
                 <div class="header-top-right">
@@ -16,18 +17,17 @@
                             <div class="text">
                                 <h6 class="user-dropdown-name">{{ Auth::user()->name }}</h6>
                                 <p class="user-dropdown-status text-sm text-muted">
-                                    Member
+                                    Admin
                                 </p>
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
                             <li><a class="dropdown-item" href="{{ route('admin') }}">My Account</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="auth-login.html">Logout</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -53,7 +53,8 @@
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <span><i class="bi bi-file-earmark-medical-fill"></i>
-                            Forms</span>
+                            Contact
+                        </span>
                     </a>
                 </li>
             </ul>

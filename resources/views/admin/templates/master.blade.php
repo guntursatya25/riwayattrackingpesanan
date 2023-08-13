@@ -21,18 +21,18 @@
         <div id="sidebar">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
-                    @include('admin.templates.hlogo')
+                    @include('admin.templates.parts.hlogo')
                 </div>
 
                 <div class="sidebar-menu">
-                    @include('admin.templates.sidebar')
+                    @include('admin.templates.parts.sidebar')
                 </div>
             </div>
         </div>
         <div id="main" class="layout-navbar navbar-fixed">
             <header>
                 <nav class="navbar navbar-expand navbar-light navbar-top">
-                    @include('admin.templates.header')
+                    @include('admin.templates.parts.header')
                 </nav>
             </header>
             <div id="main-content">
@@ -47,7 +47,7 @@
                 <div>@yield('modal')</div>
             </div>
             <footer>
-                @include('admin.templates.footer')
+                @include('admin.templates.parts.footer')
             </footer>
         </div>
     </div>

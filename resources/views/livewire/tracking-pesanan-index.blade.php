@@ -37,7 +37,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 id="hasil">Hasil</h4>
+                                <div class="divider">
+                                    <div class="divider-text">
+                                        <h4 id="hasil">Hasil</h4>
+                                    </div>
+                                </div>
                                 @php
                                     $items = explode(',', $pesanan->pesanan);
                                     $qty = explode(',', $pesanan->jumlah);
@@ -83,68 +87,78 @@
                                 </div>
 
 
-                                <h3>Status</h3>
-                                @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
-                                    <div class="accordion accordion-flush" id="hasilriwayat{{ $index }}">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse{{ $index }}" aria-expanded="false"
-                                                    aria-controls="flush-collapseOne">
-                                                    Tanggal: {{ $pesananLog->created_at->format('d-m-Y') }}
-                                                    Waktu: {{ $pesananLog->created_at->format('H:i') }}
-                                                </button>
-                                            </h2>
-                                            <div id="collapse{{ $index }}" class="accordion-collapse collapse"
-                                                data-bs-parent="#hasilriwayat{{ $index }}">
-                                                <div class="accordion-body">
-                                                    @php
-                                                        $qtys = explode(',', $pesananLog->qtys);
-                                                        $status = explode(',', $pesananLog->riwayat);
-                                                    @endphp
-                                                    <table class="table table-hover   ">
+                                <div class="divider">
+                                    <div class="divider-text">
+                                        <h3>Status</h3>
+                                    </div>
+                                </div>
+                                @if (empty($logstatus))
+                                    <p class="text-center">Pesanan belum diproses</p>
+                                @else
+                                    @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
+                                        <div class="accordion" id="hasilriwayat{{ $index }}">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse{{ $index }}"
+                                                        aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        Tanggal: {{ $pesananLog->created_at->format('d-m-Y') }}
+                                                        Waktu: {{ $pesananLog->created_at->format('H:i') }}
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse{{ $index }}"
+                                                    class="accordion-collapse collapse"
+                                                    data-bs-parent="#hasilriwayat{{ $index }}">
+                                                    <div class="accordion-body">
+                                                        @php
+                                                            $qtys = explode(',', $pesananLog->qtys);
+                                                            $status = explode(',', $pesananLog->riwayat);
+                                                        @endphp
+                                                        <table class="table table-hover   ">
 
-                                                        <thead>
-                                                            <th>Pesanan</th>
-                                                            <th class="text-center">Status</th>
-                                                            <th class="text-center">Jumlah</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    @foreach ($items as $iiiiiiiii)
-                                                                        <p>{{ $iiiiiiiii }}</p>
-                                                                    @endforeach
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @foreach ($status as $stat)
-                                                                        <p>
-                                                                            {{ $stat }}
-                                                                        </p>
-                                                                    @endforeach
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    @foreach ($qtys as $qty)
-                                                                        <p>
-                                                                            {{ $qty }}
-                                                                        </p>
-                                                                    @endforeach
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                            <thead>
+                                                                <th>Pesanan</th>
+                                                                <th class="text-center">Status</th>
+                                                                <th class="text-center">Jumlah</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        @foreach ($items as $iiiiiiiii)
+                                                                            <p>{{ $iiiiiiiii }}</p>
+                                                                        @endforeach
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @foreach ($status as $stat)
+                                                                            <p>
+                                                                                {{ $stat }}
+                                                                            </p>
+                                                                        @endforeach
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @foreach ($qtys as $qty)
+                                                                            <p>
+                                                                                {{ $qty }}
+                                                                            </p>
+                                                                        @endforeach
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-
-                                {{-- @if (count($pesanan->PesananLogs) > 1)
-                                    <a href="#hasil" wire:click="toggleTables">{{ $linkText }}</a>
-                                @endif --}}
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
+                        @if ($logstatus)
+                            <div class="card">
+                                @livewire('ulasan-section')
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endforeach

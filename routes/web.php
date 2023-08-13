@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
-use App\Models\Pesanan;
 
 Route::controller(AuthController::class)->group(function (){
     Route::get('/login','index')->name('login');
@@ -14,18 +13,23 @@ Route::controller(AuthController::class)->group(function (){
 });
 
 Route::prefix('admin')->controller(AdminController::class)->middleware('auth')->group(function () {
-    Route::get('order','tambah')->name('tambah');
-    Route::post('order','store')->name('pesanan.store');
+    Route::get('profil','profil')->name('profil');
     Route::get('trackingorder','listtracking')->name('tracking');
-    Route::get('tambahin/{id}','tambahstatus')->name('tambahstatus');
+    Route::get('/','admin')->name('admin');
+    Route::get('order','tambah')->name('tambah');
+    Route::get('statusorder/{id}','tambahstatus')->name('tambahstatus');
+    Route::post('order','store')->name('pesanan.store');
+    Route::post('/statusorder','actiontambahstatus')->name('actionTambahStatus');
 });
 
-Route::post('/tambahin',[AdminController::class, 'actiontambahstatus'])->name('actionTambahStatus');
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
-Route::get('/admin', function () {
-    return view('admin.admin');
-})->middleware('auth')->name('admin');
+Route::get('/b', function () {
+    return view('b');
+})->name('b');
+
+
+
 
