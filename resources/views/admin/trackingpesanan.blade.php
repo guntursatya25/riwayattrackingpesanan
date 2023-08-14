@@ -1,5 +1,9 @@
 @extends('admin.templates.master')
 
+@section('title')
+    Status Pesanan
+@endsection
+
 @section('cssthis')
     {{-- <link rel="stylesheet" href="{{ asset('assets/index/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/table-datatable.css') }}"> --}}
@@ -37,8 +41,6 @@
 @section('konten')
     <div class="card">
         <div class="card-body">
-            {{-- {{ $dataTable->table() }} --}}
-
             @livewire('table-tracking')
         </div>
     </div>

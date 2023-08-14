@@ -4,7 +4,7 @@
 @endsection
 @section('konten')
     <div class="card">
-        <div class="body">
+        <div class="card-body">
             <div class="row p-4 align-items-center">
                 @if ($message = Session::get('succes'))
                     <div class="alert alert-success alert-dismissible show fade">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     @php
-                        $items = explode(',', $pesanan->pesanan);
+                        $items = explode(',', $pesanan->namabarang);
                         $qty = explode(',', $pesanan->jumlah);
                     @endphp
                     <div class="col-3">
@@ -195,10 +195,14 @@
     </div>
     <hr>
     <div class="card">
-        <div class="body">
+        <div class="card-body">
             <div class="row p-4">
                 <h4 class="card-title">Riwayat Status</h4>
-
+                @if ($pesanan->PesananLogs->isNotEmpty())
+                    Ada
+                @else
+                    <p>Belum ada riwayat status</p>
+                @endif
                 @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
                     <div class="accordion" id="hasilriwayat{{ $index }}">
                         <div class="accordion-item">

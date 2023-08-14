@@ -27,9 +27,9 @@ class ModalTracking extends Component
         $dataku = Pesanan::find($this->view_id);
 
         // $dataku = Pesanan::where('id', $this->view_idk)->first();
-        $dataku->nama_pelanggan = $this->nama;
-        $dataku->email = $this->email;
-        $dataku->pesanan = $this->hiddenInputPesanan;
+        // $dataku->nama_pelanggan = $this->nama;
+        // $dataku->email = $this->email;
+        $dataku->namabarang = $this->hiddenInputPesanan;
         $dataku->jumlah = $this->hiddenInputJumlah;
 
         $dataku->save();
@@ -50,7 +50,7 @@ class ModalTracking extends Component
         $this->dispatchBrowserEvent('show-delete-modal');
         $pesanan = Pesanan::where('id', $id)->first();
         $this->view_id = $id;
-        $this->no_pesanan = $pesanan->no_pesanan;
+        $this->no_pesanan = $pesanan->kdpsn;
         $this->urlcurr= $urlcu;
     }
 
@@ -69,10 +69,10 @@ class ModalTracking extends Component
  
         $this->nama = $pesanan->nama_pelanggan;
         $this->email = $pesanan->email;
-        $this->no_pesanan = $pesanan->no_pesanan;
-        $this->pesanan = $pesanan->pesanan;
+        $this->no_pesanan = $pesanan->kdpsn;
+        $this->pesanan = $pesanan->namabarang;
         $this->jumlah = $pesanan->jumlah;
-        $this->hiddenInputPesanan =  $pesanan->pesanan;
+        $this->hiddenInputPesanan =  $pesanan->namabarang;
         $this->hiddenInputJumlah =  $pesanan->jumlah;
         $this->urlcurr= $urlcu;
 

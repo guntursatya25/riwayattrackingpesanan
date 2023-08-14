@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Pesanan;
+use App\Models\PesananLogs;
 use App\Models\Ulasan;
 use Livewire\Component;
 
@@ -12,7 +13,7 @@ class TrackingPesananIndex extends Component
     public $searchTerm = '';
     public $hasil = '';
     public $showResults = false; 
-    public $idnya, $logstatus;
+    public $idnya, $ulasanstatus, $logstatus, $logstatusdikirim;
     
     public function search()
     {
@@ -22,13 +23,15 @@ class TrackingPesananIndex extends Component
         if (empty($trimmed)) {
             $this->hasil = null;
         } else {
-                $this->hasil = Pesanan::with('PesananLogs')->where('no_pesanan', '=', $trimmed)->get();
+                $this->hasil = Pesanan::with('PesananLogs')->where('kdpsn', '=', $trimmed)->get();
                           
                 if ($this->hasil->isEmpty()) {
                     $this->hasil = null;
                 }else {
                     $this->idnya = $this->hasil->first()->id;
-                    $this->logstatus = Ulasan::where('pesanan_id', $this->idnya)->first();
+                    $this->logstatus = PesananLogs::where('pesanan_id', $this->idnya)->first();
+                    // $this->logstatusdikirim = PesananLogs::where('pesanan_id', $this->idnya)->where('status', 'Dikirim')->first();
+                    $this->ulasanstatus = Pesanan::where('kdpsn', $trimmed)->where('status', 'Selesai')->first();
                     $this->emit('resetDatarating');
 
                     $this->emit('dataTerkirim', $this->idnya);

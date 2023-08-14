@@ -32,7 +32,7 @@
                                           Pesanan telah diulas
                                       </p>
                                       <p class="notification-subtitle font-thin text-sm">
-                                          {{ $row->pesanan->no_pesanan }} telah diulas
+                                          {{ $row->pesanan->kdpsn }} telah diulas
 
                                       </p>
                                   </div>
@@ -53,7 +53,7 @@
                   <div class="user-menu d-flex">
                       <div class="user-name text-end me-3">
                           <h6 class="mb-0 text-gray-600">
-                              {{ Auth::user()->username }}
+                              {{ Auth::user()->name ? Auth::user()->name : Auth::user()->username }}
                           </h6>
                           <p class="mb-0 text-sm text-gray-600">Administrator</p>
                       </div>
@@ -70,7 +70,7 @@
                           !</h6>
                   </li>
                   <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{{ route('profil') }}">
                           <i class="icon-mid bi bi-person me-2"></i>
                           My Profile
                       </a>

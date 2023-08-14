@@ -16,7 +16,7 @@
     <li class="sidebar-item">
         <a href="{{ route('tracking') }}" class="sidebar-link">
             <i class="bi bi-clipboard-fill"></i>
-            <span>Tracking Pesanan </span>
+            <span>Status Pesanan </span>
         </a>
     </li>
 </ul>

@@ -12,20 +12,15 @@
                         <div class="col-8">
                             <input wire:model="searchTerm" type="text" class="form-control col-8" name="search"
                                 placeholder="@if ($hasil === null && $searchTerm === '') Masukkan nomor pesanan                    
-                                @else Nomor Pesanan @endif" />
+                                @else Nomor Pesanan @endif"
+                                onkeyup="if(event.keyCode === 13) document.getElementById('btnsearch').click();" />
                         </div>
                         <button wire:click="search" wire:loading.attr="disabled" id="btnsearch"
                             class="btn btn-primary col-4" type="button">
                             Cari
                         </button>
                     </div>
-                    {{-- @if ($hasil === null && $searchTerm === '')
-                        <div class="mt-1">Masukkan nomor pesanan</div>
-                    @endif --}}
-
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -43,16 +38,14 @@
                                     </div>
                                 </div>
                                 @php
-                                    $items = explode(',', $pesanan->pesanan);
+                                    $items = explode(',', $pesanan->namabarang);
                                     $qty = explode(',', $pesanan->jumlah);
                                     $status = explode(',', $pesanan->track_order);
                                 @endphp
                                 <div>
-                                    Nomor Pesanan : {{ $pesanan->no_pesanan }}
+                                    Nomor Pesanan : {{ $pesanan->kdpsn }}
                                 </div>
-                                <div>
-                                    Nama Pemesan : {{ $pesanan->nama_pelanggan }}
-                                </div>
+
                                 <div class="mb-3">
                                     Tanggal Pemesanan : {{ $pesanan->created_at->format('d-m-Y') }}
                                 </div>
@@ -154,7 +147,7 @@
                                 @endif
                             </div>
                         </div>
-                        @if ($logstatus)
+                        @if ($ulasanstatus)
                             <div class="card">
                                 @livewire('ulasan-section')
                             </div>

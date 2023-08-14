@@ -1,4 +1,9 @@
 @extends('admin.templates.master')
+
+@section('title')
+    Tambah Pesanan
+@endsection
+
 @section('upkonten')
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
@@ -25,176 +30,146 @@
                                 Form Pesanan
                             </h4>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-9">
                                     <form action="{{ route('pesanan.store') }}" method="POST" id="pesananForm"
                                         class="">
                                         @csrf
                                         <h5 class="card-subtitle">Pelanggan</h5>
-                                        <div class="row g-3">
-                                            <div class="col-md-12">
-                                                <div class="form-floating">
-                                                    <input name="nama" type="text"
-                                                        class="form-control @error('nama') is-invalid @enderror"
-                                                        id="floatingName" placeholder="Name" value="{{ old('nama') }}">
-                                                    <label for="floatingName">Nama</label>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div id="kolompesanan" class="col-6">
+                                                    <label for="pesanan">Pesanan</label>
+                                                    <div class="row mb-2">
+                                                        <div class="col">
+                                                            <input type="text" name="namapesanan"
+                                                                class="form-control barang">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input name="email" type="email" class="form-control"
-                                                        id="floatingEmail" placeholder="Email" value="{{ old('email') }}">
-                                                    <label for="floatingEmail">Email</label>
+                                                <div id="kolomjumlah" class="col-6">
+                                                    <label for="jumlah">Jumlah</label>
+                                                    <div class="row mb-2">
+                                                        <div class="col">
+                                                            <input type="text" name="jumlah"
+                                                                class="form-control jumlah">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input name="noWa" type="text" class="form-control"
-                                                        id="floatingnoWA" placeholder="noWA" value="{{ old('noWa') }}">
-                                                    <label for="floatingnoWA">Whatsapp</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <textarea name="address" class="form-control  @error('address') is-invalid @enderror"
-                                                        placeholder="Address value="{{ old('address') }}"" id="floatingTextarea" style="height: 100px;"></textarea>
-                                                    <label for="floatingTextarea">Alamat lengkap</label>
-                                                </div>
+
                                             </div>
                                         </div>
-                                        <div class="text-center mt-2">
-                                            <input type="hidden" id="itemDataInput" name="itemData">
-                                            <input type="hidden" id="quantityDataInput" name="quantityData">
-                                            <input name="track_order" type="hidden" id="statusDataInput">
+                                        <div class="col d-flex justify-content-center">
+                                            <button type="button" onclick="addItems()" class="btn btn-secondary btn-sm">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                            <button class="btn btn-danger ms-2" type="button" onclick="removeItem()">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
+                                        </div>
 
-                                            <button onclick="captureData()" type="submit"
+                                        <div class="text-center mt-2">
+                                            <input type="hidden" id="itemDataInput" name="itemData" placeholder="items">
+                                            <input type="hidden" id="quantityDataInput" name="quantityData"
+                                                placeholder="jumlah">
+
+                                            <button type="submit" onclick="captureData()"
                                                 class="btn btn-primary">Simpan</button>
                                             <button type="reset" class="btn btn-secondary">Reset</button>
                                         </div>
                                     </form>
+                                    {{-- <button type="button" onclick="captureData()" class="btn btn-primary">get</button> --}}
                                 </div>
-                                <div class="col-lg-6">
-                                    <div id="orderContainer">
-                                        <div class="order-item">
-                                            <h5 class="card-subtitle">Pesanan</h5>
-                                            <div class="row g-3 mb-3">
-                                                <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control " name="item[]"
-                                                            id="Pesanan" placeholder="Pesanan" required>
-                                                        <label for="Pesanan">Pesanan</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="form-floating">
-                                                        <input type="number" class="form-control" name="quantity[]"
-                                                            id="floatingJumlah" placeholder="Jumlah" required>
-                                                        <label for="floatingJumlah">Jumlah</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1 d-flex align-items-center justify-content-center">
-                                                    <button class="btn btn-primary btn-sm" onclick="addItem()"><i
-                                                            class="bi bi-plus"></i></button>
-                                                </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if ($errors->any())
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                @error('itemData')
-                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                        <button type="button" class="close" data-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        <strong>Warning</strong>
-                                                        <p>Isi pesanan</p>
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-5">
-                                                @error('quantityData')
-                                                    <div class="alert alert-danger alert-dismissible fade show"
-                                                        role="alert">
-                                                        <button type="button" class="close" data-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        <strong>Warning</strong>
-                                                        <p>
-                                                            Isi jumlah
-                                                        </p>
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
                             </div>
                         </div>
+                        @if ($errors->any())
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @error('itemData')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <strong>Warning</strong>
+                                            <p>Isi pesanan</p>
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-5">
+                                    @error('quantityData')
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <strong>Warning</strong>
+                                            <p>
+                                                Isi jumlah
+                                            </p>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+    </div>
 @endsection
 
 @section('jscript')
     <script>
-        function addItem() {
-            var orderContainer = document.getElementById("orderContainer");
+        function addItems() {
+            var kolomPesanan = document.getElementById("kolompesanan");
+            var kolomJumlah = document.getElementById("kolomjumlah");
+
             var orderItem = document.createElement("div");
-            orderItem.className = "order-item";
-            var html = `
-        <div class="row g-3 mb-3">
-            <div class="col-md-6">
-                <div class="form-floating">
-                    <input type="text" class="form-control" name="item[]" id="Pesanan" placeholder="Pesanan">
-                    <label for="Pesanan">Pesanan</label>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="form-floating">
-                    <input type="number" class="form-control" name="quantity[]" id="floatingJumlah" placeholder="Jumlah">
-                        <label for="floatingJumlah">Jumlah</label>
-                </div>
-            </div>
-                <div class="col-md-1 d-flex align-items-center justify-content-center">
-                    <button class="btn btn-primary btn-sm" onclick="removeItem(this)"><i class="bi bi-dash""></i></button>            
-                </div>
-            </div>
-        </div>
-`;
-            orderItem.innerHTML = html;
-            orderContainer.appendChild(orderItem);
+            orderItem.setAttribute("class", "row mb-2 ulangin");
+            var orderItem2 = document.createElement("div");
+            orderItem2.setAttribute("class", "row mb-2 ulangin");
+
+            var html1 = `<div class="col"><input type="text" name="jumlah" class="form-control jumlah"></div>`;
+            var html2 = `<div class="col"><input type="text" name="namapesanan" class="form-control barang"></div>`;
+
+            orderItem.innerHTML = html1;
+            orderItem2.innerHTML = html2;
+
+            kolomJumlah.appendChild(orderItem);
+            kolomPesanan.appendChild(orderItem2);
         }
 
-        function removeItem(button) {
-            var orderItem = button.closest(".order-item");
-            var orderContainer = orderItem.parentNode;
-            orderContainer.removeChild(orderItem);
+        function removeItem() {
+            var kolomPesanan = document.getElementById("kolompesanan");
+            var kolomJumlah = document.getElementById("kolomjumlah");
+
+            var lastPesananRow = kolomPesanan.querySelector('.ulangin:last-of-type');
+            var lastJumlahRow = kolomJumlah.querySelector('.ulangin:last-of-type');
+
+            kolomPesanan.removeChild(lastPesananRow);
+            kolomJumlah.removeChild(lastJumlahRow);
+            input1Values.pop();
+            input2Values.pop();
         }
 
         function captureData() {
-            var orderItems = document.getElementsByClassName("order-item");
-            var table = document.getElementById("orderTable");
+            let qtyInputs = document.getElementsByClassName('jumlah');
+            let itemInputs = document.getElementsByClassName('barang');
 
             var itemData = "";
             var quantityData = "";
-            var track_order = "";
 
-            for (var i = 0; i < orderItems.length; i++) {
-                var itemInput = orderItems[i].getElementsByTagName("input")[0].value;
-                var quantityInput = orderItems[i].getElementsByTagName("input")[1].value;
+            for (var i = 0; i < qtyInputs.length; i++) {
+                var itemInput = itemInputs[i].value;
+                var quantityInput = qtyInputs[i].value;
 
                 itemData += itemInput + ",";
                 quantityData += quantityInput + ",";
-                track_order += "masuk" + ",";
             }
 
             document.getElementById("itemDataInput").value = itemData.slice(0, -1);
-            document.getElementById("statusDataInput").value = track_order.slice(0, -1);
             document.getElementById("quantityDataInput").value = quantityData.slice(0, -1);
         }
     </script>

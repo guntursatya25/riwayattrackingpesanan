@@ -22,7 +22,7 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                            <li><a class="dropdown-item" href="{{ route('admin') }}">My Account</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin') }}">Admin</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>

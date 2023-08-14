@@ -15,6 +15,12 @@ class AdminController extends Controller
     public function profil(){
         return view('admin.myprofile');
     } 
+
+    public function ulasan(){
+        $ulasan = Ulasan::with('Pesanan')->get();
+        return view('admin.ulasantable', compact('ulasan'));
+    }
+
     public function admin(){
         $pesanan= Pesanan::all();
         $jumlahProses = $pesanan->where('status', 'proses')->count();
@@ -32,9 +38,9 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => ['required'],
+            // 'nama' => ['required'],
             'quantityData' => ['required'],
-            'address' => ['required'],
+            // 'address' => ['required'],
             'itemData' => ['required'],
         ]);
 
@@ -46,15 +52,14 @@ class AdminController extends Controller
         $nosurat = 'FIR'.date('Y').sprintf("%04s", abs($nomax + 1)) ;
 
         $pesanan = new Pesanan;
-        $pesanan->nama_pelanggan = $request->nama;
-        $pesanan->email = $request->email;
-        $pesanan->whatsapp = $request->noWa;
-        $pesanan->address = nl2br($request->address);
-        $pesanan->pesanan = $request->itemData;
+        // $pesanan->nama_pelanggan = $request->nama;
+        // $pesanan->email = $request->email;
+        // $pesanan->whatsapp = $request->noWa;
+        // $pesanan->address = nl2br($request->address);
+        $pesanan->namabarang = $request->itemData;
         $pesanan->jumlah = $request->quantityData;
-        $pesanan->status = "proses";
-        $pesanan->track_order =  $request->track_order;
-        $pesanan->no_pesanan =  $nosurat;
+        $pesanan->status = "Proses";
+        $pesanan->kdpsn =  $nosurat;
 
         $pesanan->save();
 

@@ -17,7 +17,7 @@
                             <div class="col-12">
                                 <span>No Pesanan : {{ $no_pesanan }}</span>
                             </div>
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" wire:model="nama" id="nama"
                                         placeholder="Nama">
@@ -37,7 +37,7 @@
                                         placeholder="No Wa">
                                     <label for="noWa">No Wa</label>
                                 </div>
-                            </div>
+                            </div> --}}
                             @php
                                 $pesananku = explode(',', $pesanan);
                                 $jumlahku = explode(',', $jumlah);

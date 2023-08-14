@@ -1,5 +1,9 @@
 @extends('admin.templates.master')
 
+@section('title')
+    Dasbor Admin
+@endsection
+
 @section('cssthis')
     <link rel="stylesheet" href="{{ asset('assets/index/compiled/css/iconly.css') }}">
 @endsection
@@ -121,25 +125,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ulasan as $index => $row)
+                            @if ($ulasan)
+                                @foreach ($ulasan as $index => $row)
+                                    <tr>
+                                        <td class="col-3">
+                                            <p class="font-bold ms-3 mb-0">{{ $row->pesanan->kdpsn }}</p>
+                                        </td>
+                                        <td class="col-auto">
+                                            <p class="mb-0">
+                                                {{ $row->komen }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            @for ($i = 1; $i <= $row->rating; $i++)
+                                                <span class="bi bi-star-fill "></span>
+                                            @endfor
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
-                                    <td class="col-3">
-                                        <p class="font-bold ms-3 mb-0">{{ $row->pesanan->no_pesanan }}</p>
-                                    </td>
-                                    <td class="col-auto">
-                                        <p class="mb-0">
-                                            {{ $row->komen }}
-                                        </p>
-                                    </td>
-                                    <td>
-                                        @for ($i = 1; $i <= $row->rating; $i++)
-                                            <span class="bi bi-star-fill "></span>
-                                            {{-- <span class="bi bi-star "></span> --}}
-                                        @endfor
-
-                                    </td>
+                                    <td>Data kosong</td>
                                 </tr>
-                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>Nomor Pesanan</th>
-                    <th>Nama</th>
+                    {{-- <th>Nama</th> --}}
                     <th>Pesanan</th>
                     <th>Jumlah</th>
                     <th>Action</th>
@@ -14,9 +14,9 @@
             <tbody>
                 @foreach ($pesanan as $index => $row)
                     <tr>
-                        <td>{{ $row->no_pesanan }}</td>
-                        <td>{{ $row->nama_pelanggan }}</td>
-                        <td>{{ $row->pesanan }}</td>
+                        <td>{{ $row->kdpsn }}</td>
+                        {{-- <td>{{ $row->nama_pelanggan }}</td> --}}
+                        <td>{{ $row->namabarang }}</td>
                         <td>{{ $row->jumlah }}</td>
                         <td>
                             {{-- <button type="button" class="btn waves-effect waves-light btn-sm btn-rounded btn-primary"
@@ -32,12 +32,10 @@
                                 Status
                             </button> --}}
                             <a href="{{ route('tambahstatus', ['id' => $row->id]) }}"
-                                class="btn waves-effect waves-light btn-sm btn-rounded btn-success">Status</a>
-
-                            {{-- <button type="button" name="modalViewStatus"
                                 class="btn waves-effect waves-light btn-sm btn-rounded btn-success"
-                                wire:click="openModals('{{ $row->id }}','status')"
-                                wire:loading.attr="disabled">Status</button> --}}
+                                wire:loading.attr="disabled">Status</a>
+
+
                             <button type="button" name="modalViewdelete"
                                 class="btn waves-effect waves-light btn-sm btn-rounded btn-danger"
                                 wire:click="openModals('{{ $row->id }}','delete')"
