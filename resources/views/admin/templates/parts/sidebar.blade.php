@@ -19,4 +19,10 @@
             <span>Status Pesanan </span>
         </a>
     </li>
+    <li class="sidebar-item">
+        <a href="{{ route('ulasan') }}" class="sidebar-link">
+            <i class="bi bi-star-fill"></i>
+            <span>Ulasan</span>
+        </a>
+    </li>
 </ul>

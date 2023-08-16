@@ -20,6 +20,10 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
+        ],
+        [
+            'username.required' => 'Username kosong',
+            'password.required' => 'Password kosong'
         ]);
 
         if (Auth::attempt($credentials)) {
@@ -29,10 +33,10 @@ class AuthController extends Controller
             // return redirect(route('admin'));
             return redirect('/admin');
         } else {
-            return redirect('/as');
-            // return back()->withErrors([
-            //     'username' => 'The provided credentials do not match our records.',
-            // ]);
+            // return back();
+            return back()->withErrors([
+                'username' => 'The provided credentials do not match our records.',
+            ]);
         }
     }
     public function actionRegister(Request $request){

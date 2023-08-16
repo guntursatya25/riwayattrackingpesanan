@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('pesananstatuslogs', function (Blueprint $table) {
             $table->id();
-            $table->integer('pesanan_id');
+            $table->unsignedBigInteger('pesanan_id');
             $table->string('qtys')->nullable();
             $table->string('riwayat')->nullable();
             $table->timestamps();
 
+            $table->foreign('pesanan_id')
+            ->references('id')
+            ->on('pesanans')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

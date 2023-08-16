@@ -20,7 +20,8 @@ Route::prefix('admin')->controller(AdminController::class)->middleware('auth')->
     Route::get('ulasan','ulasan')->name('ulasan');
     Route::get('statusorder/{id}','tambahstatus')->name('tambahstatus');
     Route::post('order','store')->name('pesanan.store');
-    Route::post('/statusorder','actiontambahstatus')->name('actionTambahStatus');
+    Route::post('statusorder','actiontambahstatus')->name('actionTambahStatus');
+    Route::post('statusorderupdate','actionupdatestatus')->name('actionUpdateStatus');
 });
 
 

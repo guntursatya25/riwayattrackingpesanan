@@ -20,13 +20,22 @@
     <div id="auth" class="d-flex align-items-center justify-content-center">
         <div class="row">
             <div class="c ">
-
+                @if ($errors->any())
+                    <div>
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-light-danger color-danger">
+                                <i class="bi bi-exclamation-circle"></i> {{ $error }}
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
                 <h1 class="auth-title">Log in.</h1>
                 <form action="{{ route('actionLogin') }}" method="POST">
                     @csrf
+
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" name="username" class="form-control form-control-xl"
-                            placeholder="Username" />
+                        <input type="text" name="username" class="form-control form-control-xl "
+                            placeholder="Username" value="{{ old('username') }}" />
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>

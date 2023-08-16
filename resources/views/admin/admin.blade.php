@@ -29,7 +29,7 @@
 @endsection
 
 @section('konten')
-    <div class="col-9">
+    <div class="col-md-9 col-12">
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-    <div class="col-9">
+    <div class="col-12 col-md-9">
         <div class="card">
             <div class="card-header">
                 <h4>Ulasan terbaru</h4>
@@ -138,7 +138,7 @@
                                         </td>
                                         <td>
                                             @for ($i = 1; $i <= $row->rating; $i++)
-                                                <span class="bi bi-star-fill "></span>
+                                                <span class="bi bi-star-fill text-warning"></span>
                                             @endfor
                                         </td>
                                     </tr>

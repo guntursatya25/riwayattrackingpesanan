@@ -87,6 +87,10 @@
                                 </div>
                                 @if (empty($logstatus))
                                     <p class="text-center">Pesanan belum diproses</p>
+                                @elseif ($hasil[0]['status'] === 'Selesai')
+                                    <p class="text-center">Pesanan sudah selesai</p>
+                                @elseif ($hasil[0]['status'] === 'Dikirim')
+                                    <p class="text-center">Pesanan sedang dikirim hari ini</p>
                                 @else
                                     @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
                                         <div class="accordion" id="hasilriwayat{{ $index }}">
@@ -158,20 +162,14 @@
         @elseif ($searchTerm && $hasil === null && $showResults)
             <div class="row">
                 <div class="col-12">
-
                     <h4>Hasil</h4>
                     <div class="card">
                         <div class="card-body">
-
                             <div>Data tidak ditemukan</div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         @endif
-
     </div>
-
 </div>

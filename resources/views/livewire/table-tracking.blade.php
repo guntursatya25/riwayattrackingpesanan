@@ -8,6 +8,7 @@
                     {{-- <th>Nama</th> --}}
                     <th>Pesanan</th>
                     <th>Jumlah</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -15,29 +16,24 @@
                 @foreach ($pesanan as $index => $row)
                     <tr>
                         <td>{{ $row->kdpsn }}</td>
-                        {{-- <td>{{ $row->nama_pelanggan }}</td> --}}
                         <td>{{ $row->namabarang }}</td>
                         <td>{{ $row->jumlah }}</td>
+                        <td>{{ $row->status }}</td>
                         <td>
-                            {{-- <button type="button" class="btn waves-effect waves-light btn-sm btn-rounded btn-primary"
-                                data-bs-toggle="modal" data-bs-target="#viewDetails{{ $row->id }}">
-                                Edit
-                            </button> --}}
+
                             <button type="button" name="modalView"
-                                class="btn waves-effect waves-light btn-sm btn-rounded btn-primary"
+                                class="btn waves-effect waves-light btn-sm btn-rounded btn-primary "
                                 wire:click="openModals('{{ $row->id }}','edit')"
                                 wire:loading.attr="disabled">Edit</button>
-                            {{-- <button type="button" class="btn waves-effect waves-light btn-sm btn-rounded btn-success"
-                                data-bs-toggle="modal" data-bs-target="#statusModal{{ $row->id }}">
-                                Status
-                            </button> --}}
-                            <a href="{{ route('tambahstatus', ['id' => $row->id]) }}"
-                                class="btn waves-effect waves-light btn-sm btn-rounded btn-success"
-                                wire:loading.attr="disabled">Status</a>
 
+                            <button type="button"
+                                class="btn waves-effect waves-light btn-sm btn-rounded btn-success mt-2 mt-md-0"
+                                wire:loading.attr="disabled"><a href="{{ route('tambahstatus', ['id' => $row->id]) }}"
+                                    class="text-white">Status</a>
+                            </button>
 
                             <button type="button" name="modalViewdelete"
-                                class="btn waves-effect waves-light btn-sm btn-rounded btn-danger"
+                                class="btn waves-effect waves-light btn-sm btn-rounded btn-danger mt-2 mt-md-0"
                                 wire:click="openModals('{{ $row->id }}','delete')"
                                 wire:loading.attr="disabled">Delete</button>
                         </td>

@@ -17,15 +17,15 @@ class AdminController extends Controller
     } 
 
     public function ulasan(){
-        $ulasan = Ulasan::with('Pesanan')->get();
+        $ulasan = Ulasan::with('Pesanan')->paginate(5);
         return view('admin.ulasantable', compact('ulasan'));
     }
 
     public function admin(){
         $pesanan= Pesanan::all();
-        $jumlahProses = $pesanan->where('status', 'proses')->count();
-        $jumlahDikirim = $pesanan->where('status', 'dikirim')->count();
-        $jumlahSelesai = $pesanan->where('status', 'selesai')->count();
+        $jumlahProses = $pesanan->where('status', 'Proses')->count();
+        $jumlahDikirim = $pesanan->where('status', 'Dikirim')->count();
+        $jumlahSelesai = $pesanan->where('status', 'Selesai')->count();
         $ulasan = Ulasan::with('Pesanan')->latest()->limit(3)->get();
 
         return view('admin.admin', compact('jumlahProses','jumlahDikirim','jumlahSelesai','ulasan'));
@@ -43,10 +43,6 @@ class AdminController extends Controller
             // 'address' => ['required'],
             'itemData' => ['required'],
         ]);
-
-        // $items = explode(',', $request->input('itemData'));
-        // $quantities = explode(',', $request->input('quantityData'));
-        // $track_order = explode(',', $request->input('track_order'));
 
         $nomax = Pesanan::count();
         $nosurat = 'FIR'.date('Y').sprintf("%04s", abs($nomax + 1)) ;
@@ -77,14 +73,34 @@ class AdminController extends Controller
     //     ]
     // );
         $pesanan = Pesanan::find($request->idnya);
+        $pesanan->status = $request->status;
+        $pesanan->save();
         $riwayat = new PesananLogs;
         $riwayat->pesanan()->associate($pesanan);
         $riwayat->qtys = $request->qty_hasil;
         $riwayat->riwayat = $request->tahap_hasil;
         $riwayat->save();
         // return dd($riwayat);
-        return redirect()->back()->with('succes','Status berhasil diperbarui');
+        return redirect()->back()->with('sukses','Status berhasil ditambahkan');
 
+    }
+
+    public function actionupdatestatus(Request $request){
+        $id = $request->idstatus;
+
+        // $pesanan = Pesanan::find($id);
+        $pesananlogs = PesananLogs::find($id);
+        // $pesanan->namabarang = $request->nambar;
+        // $pesanan->jumlah = $request->jumbar;
+
+        $pesananlogs->riwayat = $request->tahapbar;
+        $pesananlogs->qtys = $request->jumtapbar;
+
+        // $pesanan->save();
+        $pesananlogs->save();
+
+        return back()->with('sukses','Data berhasil diperbarui');
+        // return dd($pesananlogs);
     }
 
     public function tambahstatus($id){

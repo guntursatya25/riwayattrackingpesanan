@@ -15,11 +15,18 @@ return new class extends Migration
     {
         Schema::create('ulasan', function (Blueprint $table) {
             $table->id();
-            $table->integer('pesanan_id')->unique();
-            $table->unsignedInteger('rating'); 
+            $table->unsignedBigInteger('pesanan_id');
+            $table->unsignedInteger('rating');             
             $table->text('komen')->nullable();
             $table->timestamps();
+
+            $table->foreign('pesanan_id')
+            ->references('id')
+            ->on('pesanans')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
+        
     }
 
     /**

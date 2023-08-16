@@ -31,7 +31,11 @@ class TableTracking extends Component
     
     public function render(Request $request)
     {
-        $pesanan = Pesanan::where('status','proses')->orderBy('created_at', 'desc')->paginate(5);
+        $pesanan = Pesanan::orderBy('created_at', 'desc')->paginate(5);
+        // $pesanan = Pesanan::where(function($query) {
+        //     $query->where('status', 'Proses')
+        //           ->orWhere('status', 'Dikirim');
+        // })->orderBy('created_at', 'desc')->paginate(5);
         return view('livewire.table-tracking', compact('pesanan'));
     }
 }

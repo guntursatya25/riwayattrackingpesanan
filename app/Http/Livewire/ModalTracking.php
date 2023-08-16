@@ -67,8 +67,8 @@ class ModalTracking extends Component
         $pesanan = Pesanan::where('id', $id)->first();
         $this->view_id = $id;
  
-        $this->nama = $pesanan->nama_pelanggan;
-        $this->email = $pesanan->email;
+        // $this->nama = $pesanan->nama_pelanggan;
+        // $this->email = $pesanan->email;
         $this->no_pesanan = $pesanan->kdpsn;
         $this->pesanan = $pesanan->namabarang;
         $this->jumlah = $pesanan->jumlah;

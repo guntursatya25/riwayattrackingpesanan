@@ -25,7 +25,7 @@ class Pesanan extends Model
 
     protected $fillable = [
         'kdpsn',
-        'nama_barang',
+        'namabarang',
         'jumlah',
         'tgl_msk',
         'tgl_krm',

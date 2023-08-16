@@ -31,7 +31,10 @@ class TrackingPesananIndex extends Component
                     $this->idnya = $this->hasil->first()->id;
                     $this->logstatus = PesananLogs::where('pesanan_id', $this->idnya)->first();
                     // $this->logstatusdikirim = PesananLogs::where('pesanan_id', $this->idnya)->where('status', 'Dikirim')->first();
-                    $this->ulasanstatus = Pesanan::where('kdpsn', $trimmed)->where('status', 'Selesai')->first();
+                    // $this->ulasanstatus = Pesanan::where('kdpsn', $trimmed)->where('status', 'Selesai')->first();
+                    $this->ulasanstatus = Pesanan::where('kdpsn', $trimmed)
+                                ->whereIn('status', ['dikirim', 'selesai'])
+                                ->first();
                     $this->emit('resetDatarating');
 
                     $this->emit('dataTerkirim', $this->idnya);
