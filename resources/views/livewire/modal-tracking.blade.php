@@ -71,7 +71,6 @@
                                 </div>
                             </div>
 
-
                             <div class="col d-flex justify-content-center">
                                 <button type="button" onclick="addItems()" class="btn btn-secondary btn-sm">
                                     <i class="bi bi-plus"></i>
@@ -85,11 +84,6 @@
                                 id="hiddenInputPesanan" name="hiddenPesanan">
                             <input type="hidden" id="hiddenInputJumlah" class="form-control"
                                 wire:model="hiddenInputJumlah" name="hiddenJumlah">
-
-                            {{-- <input type="text" class="form-control" wire:model="hiddenInputPesanan"
-                                id="hiddenInputPesanan" name="hiddenPesanan">
-                            <input id="hiddenInputJumlah" class="form-control" type="text"
-                                wire:model="hiddenInputJumlah" name="hiddenJumlah"> --}}
 
                             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                             <button class="btn btn-primary btn-sm"" onclick="combineValues()" type="submit"

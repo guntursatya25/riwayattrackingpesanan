@@ -8,13 +8,15 @@
                 <img src="{{ asset('assets/index/compiled/jpg/4.jpg') }}" />
             </div>
             <div class="name ms-3">
-                <h5 class="mb-1">Firman Anggara</h5>
-                <h6 class="text-muted mb-0 small">CEO CV FIRMOS</h6>
+                <h5 class="mb-1">Mohan</h5>
+                {{-- <h6 class="text-muted mb-0 small">CEO CV FIRMOS</h6> --}}
             </div>
         </div>
         <div class="px-4 mt-2">
             <button class="btn btn-block btn-xl btn-light-primary font-bold mt-3">
-                Hubungi
+                <a href="#">
+                    Hubungi
+                </a>
             </button>
         </div>
     </div>

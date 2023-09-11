@@ -7,12 +7,12 @@
             <span>Dashboard</span>
         </a>
     </li>
-    <li class="sidebar-item">
+    {{-- <li class="sidebar-item">
         <a href="{{ route('tambah') }}" class="sidebar-link">
             <i class="bi bi-bag-plus-fill"></i>
             <span>Tambah Pesanan</span>
         </a>
-    </li>
+    </li> --}}
     <li class="sidebar-item">
         <a href="{{ route('tracking') }}" class="sidebar-link">
             <i class="bi bi-clipboard-fill"></i>

@@ -115,7 +115,7 @@
                         <h4 class="card-title">Detail Pesanan </h4>
                     </div>
                     <div class="col-7">
-                        <h4 class="card-title">Update Status </h4>
+                        <h4 class="card-title">Perbarui Status </h4>
                     </div>
                 </div>
                 <form action="{{ route('actionTambahStatus') }}" class="row" method="POST">
@@ -147,6 +147,8 @@
                         <div class="form-group">
                             <label for="tahap">Tahap</label>
                             {{-- {{ now()->format('H:i:s') }} --}}
+
+
                             @for ($i = 1; $i <= count($qty); $i++)
                                 <div class="qtys_div[{{ $i }}]">
                                     @if ($pesanan->PesananLogs->isNotEmpty())
@@ -157,12 +159,33 @@
                                         @endphp
 
                                         @if ($i <= count($riwayat))
-                                            <input value="{{ $riwayat[$i - 1] }}" type="text"
+                                            {{-- <input value="{{ $riwayat[$i - 1] }}" type="text"
                                                 class="form-control mb-2 tahap_input" pattern="[A-Za-z0-9 ]+"
-                                                title="Masukkan angka dan huruf saja">
+                                                title="Masukkan angka dan huruf saja"> --}}
+
+                                            <select class="form-select tahap_inputin" data-indexs="{{ $i - 1 }}"
+                                                name="tahap_inputin">
+                                                <option value="Belum diproses">---
+                                                </option>
+                                                <option value="Design"
+                                                    {{ $riwayat[$i - 1] === 'Design' ? 'selected' : '' }}>Design
+                                                </option>
+                                                <option value="Produksi"
+                                                    {{ strcasecmp($riwayat[$i - 1], 'Produksi') == 0 ? 'selected' : '' }}>
+                                                    Produksi
+                                                </option>
+                                            </select>
                                         @else
                                             <input value="" type="text" class="form-control mb-2 tahap_input"
                                                 pattern="[A-Za-z0-9 ]+" title="Masukkan angka dan huruf saja">
+                                            <select class="form-select" id="tahap_input1" name="tahap_input1">
+                                                <option>---
+                                                </option>
+                                                <option value="Design">Design
+                                                </option>
+                                                <option value="Produksi">Produksi
+                                                </option>
+                                            </select>
                                         @endif
                                     @else
                                         <input value="" type="text" class="form-control mb-2 tahap_input"
@@ -170,6 +193,7 @@
                                     @endif
                                 </div>
                             @endfor
+
                         </div>
                     </div>
                     <div class="col-2">
@@ -208,7 +232,7 @@
                             <label class="invisible" for="btn_submit">Jumlah</label>
                             <button onclick="getAllData()" name="btn_submit" type="submit" href="#"
                                 class="btn icon icon-left btn-primary btn-sm">
-                                <i class="bi bi-check"></i> Save All
+                                <i class="bi bi-check"></i> Simpan
                             </button>
                         </div>
                     </div>
@@ -226,9 +250,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-7 ms-2 ">
-                            <div id="maxValueError" style="display: none;"
-                                class="alert alert-light-danger color-danger error-message">
+                        <div class="col-7 ms-2 " id="maxValueError" style="display: none;">
+                            <div class="alert alert-light-danger color-danger error-message">
                                 <i class="bi bi-exclamation-circle"></i> Nilai melebihi batas maksimum jumlah pesanan
                             </div>
                         </div>
@@ -236,9 +259,13 @@
                     <input type="hidden" class="form-control mb-2" name="idnya" value="{{ $pesanan->id }}">
                     <input type="hidden" class="form-control mb-2" name="tahap_hasil" id="tahap_hasil">
                     <input type="hidden" class="form-control mb-2" name="qty_hasil" id="qty_hasil">
+                    <input type="hidden" class="form-control mb-2" name="id_admin" id="id_admin"
+                        value="{{ Auth::user()->id }}">
+                    {{-- <input type="text" name="" id="pilihanku"> --}}
+
                 </form>
                 <div>
-                    {{-- <button class="btn btn-primary" onclick="getAllData()">Get All</button> --}}
+                    <button class="btn btn-primary" onclick="getAllData()">Get All</button>
 
                 </div>
             </div>
@@ -313,7 +340,8 @@
                                             data-bs-target="#modal{{ $pesananLog->id }}">Edit</button>
                                     </div>
                                     <div class="col-2 ms-3">
-                                        <button class="btn btn-danger">Hapus</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modaldelete{{ $pesananLog->id }}">Hapus</button>
                                     </div>
                                 </div>
                             </div>
@@ -331,7 +359,7 @@
 @section('modal')
     @if ($pesanan->PesananLogs->isNotEmpty())
         @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
-            <!-- Modal -->
+            <!-- Modal Edit-->
             <div class="modal fade" id="modal{{ $pesananLog->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
                 tabindex="-1" aria-labelledby="modalLabel{{ $pesananLog->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg"">
@@ -416,61 +444,89 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Delete-->
+            <div class="modal fade" id="modaldelete{{ $pesananLog->id }}" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel{{ $pesananLog->id }}"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('actionDeleteStatus') }}" method="POST">
+                                @csrf
+                                <div class="row g-2 p-2">
+                                    <div class="col-12">
+                                        <h5>Are you sure? You want to delete this data ?</h5>
+                                    </div>
+                                </div>
+                                <input type="hidden" readonly name="iddelete" value="{{ $pesananLog->id }}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+                        {{-- <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
         @endforeach
     @endif
 @endsection
 
 @section('jscript')
+    <script></script>
     <script>
         function capturedatamodal(button) {
             let index = button.getAttribute('data-index');
 
-            // let namabarang = document.getElementById('nambar');
-            // let jumlahbarang = document.getElementById('jumbar');
-            // let tahapan = document.getElementById('tahapbar');
-            // let jumlahtahapan = document.getElementById('jumtapbar');
-
-            // let itemValue = '';
-            // let jumlahasliValue = '';
             let aslitahapValue = '';
             let jumlahValue = '';
 
             let modal = document.getElementById('modal' + index);
 
-            // let itemInputs = modal.getElementsByClassName('modalnamabarang');
-            // let jmlhaslibarang = modal.getElementsByClassName('modaljumlahbarang');
             let tahapInputsmodal = modal.getElementsByClassName('modaltahap');
             let jumlahInputs = modal.getElementsByClassName('modaljumlah');
 
-            // let namabarang = modal.querySelector('#nambar');
-            // let jumlahbarang = modal.querySelector('#jumbar');
+
             let tahapan = modal.querySelector('#tahapbar');
             let jumlahtahapan = modal.querySelector('#jumtapbar');
 
             for (let i = 0; i < tahapInputsmodal.length; i++) {
-                // let currentitemInputs = itemInputs[i].value.trim();
-                // let currentqtyInputs = jmlhaslibarang[i].value.trim();
+
                 let currenttahapInputs = tahapInputsmodal[i].value.trim();
                 let currentjumlahInputs = jumlahInputs[i].value.trim();
 
-                // itemValue += currentitemInputs + ',';
-                // jumlahasliValue += currentqtyInputs + ',';
                 aslitahapValue += currenttahapInputs + ',';
                 jumlahValue += currentjumlahInputs + ',';
             }
 
-            // itemValue = itemValue.slice(0, -1);
-            // jumlahasliValue = jumlahasliValue.slice(0, -1);
             aslitahapValue = aslitahapValue.slice(0, -1);
             jumlahValue = jumlahValue.slice(0, -1);
 
-            // namabarang.value = itemValue;
-            // jumlahbarang.value = jumlahasliValue;
             tahapan.value = aslitahapValue;
             jumlahtahapan.value = jumlahValue;
 
             // console.log(namabarang, jumlahbarang, tahapan, jumlahtahapan);
         }
+        // let tahapinkuhhidden = document.getElementById('pilihanku');
+
+        // function getstatusdata() {
+        //     let tahapinkuhvalue = '';
+        //     for (let i = 0; i < tahapinkuh.length; i++) {
+        //         let element = tahapinkuh[i].value.trim();
+        //         tahapinkuhvalue += element + ',';
+        //     }
+        //     tahapinkuhvalue = tahapinkuhvalue.slice(0, -1);
+        //     tahapinkuhhidden.value = tahapinkuhvalue;
+
+        // }
+        let tahapinkuh = document.getElementsByClassName('tahap_inputin');
 
         let qtyinputinhidden = document.getElementById('qty_hasil');
         let tahapinputhidden = document.getElementById('tahap_hasil');
@@ -484,13 +540,13 @@
             let tahapValue = '';
             for (let i = 0; i < qtyInputs.length; i++) {
                 let currentQtyValue = qtyInputs[i].value.trim();
-                let currentTahapValue = tahapInputs[i].value.trim();
+                let currentTahapValue = tahapinkuh[i].value.trim();
 
                 if (currentQtyValue === '') {
                     currentQtyValue = '0';
                 }
                 if (currentTahapValue === '') {
-                    currentTahapValue = 'Pesanan dibuat';
+                    currentTahapValue = 'Pesanan sedang diproses';
                 }
 
                 tahapValue += currentTahapValue + ',';
@@ -502,6 +558,8 @@
 
             qtyinputinhidden.value = qtyValue;
             tahapinputhidden.value = tahapValue;
+            console.log(qtyinputinhidden.value)
+            console.log(tahapinputhidden.value)
         }
         getAllData();
 
@@ -509,7 +567,6 @@
             var maxValue = parseFloat(input.getAttribute('max'));
             var value = parseFloat(input.value);
             var errorMessage = document.getElementById('maxValueError');
-
 
             if (value > maxValue) {
                 errorMessage.style.display = 'block';
@@ -527,16 +584,5 @@
                 title: '{{ $message }}'
             })
         @endif
-        // document.getElementById('toast-success').addEventListener('click', () => {
-        //     Toast.fire({
-        //         icon: 'success',
-        //         title: '{{ $message }}'
-        //     })
-        // })
-
-        // Toast.fire({
-        //     icon: 'success',
-        //     title: 'Signed in successfully'
-        // })
     </script>
 @endsection

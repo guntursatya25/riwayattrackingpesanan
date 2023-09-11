@@ -10,7 +10,7 @@
 @section('upkonten')
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Hi, welcome {{ Auth::user()->username }}</h3>
+            <h3>Hi, selamat datang {{ Auth::user()->username }}</h3>
 
         </div>
         {{-- <div class="col-12 col-md-6 order-md-2 order-first">
@@ -121,7 +121,7 @@
                             <tr>
                                 <th>Kode Pesanan</th>
                                 <th>Komentar</th>
-                                <th>Star</th>
+                                <th>Bintang</th>
                             </tr>
                         </thead>
                         <tbody>

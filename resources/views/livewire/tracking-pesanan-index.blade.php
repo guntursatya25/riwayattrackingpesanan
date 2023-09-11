@@ -6,7 +6,7 @@
                     <h4>Nomor Pesanan</h4>
                 </div>
                 <div class="card-body">
-                    <div>Ex: FIR20230014</div>
+                    <div>Ex: FIR20230001</div>
 
                     <div class="row">
                         <div class="col-8">
@@ -85,12 +85,19 @@
                                         <h3>Status</h3>
                                     </div>
                                 </div>
-                                @if (empty($logstatus))
+                                @if ($hasil[0]['status'] === 'Selesai')
+                                    <p class="text-center">Pesanan sudah selesai</p>
+                                @elseif ($hasil[0]['status'] === 'Dikirim')
+                                    <p class="text-center">Pesanan sedang dikirim hari ini</p>
+                                @elseif (empty($logstatus))
+                                    <p class="text-center">Pesanan belum diproses</p>
+                                    {{-- {{ $logstatusdikirim }} --}}
+                                    {{-- @if (empty($logstatus))
                                     <p class="text-center">Pesanan belum diproses</p>
                                 @elseif ($hasil[0]['status'] === 'Selesai')
                                     <p class="text-center">Pesanan sudah selesai</p>
                                 @elseif ($hasil[0]['status'] === 'Dikirim')
-                                    <p class="text-center">Pesanan sedang dikirim hari ini</p>
+                                    <p class="text-center">Pesanan sedang dikirim hari ini</p> --}}
                                 @else
                                     @foreach ($pesanan->PesananLogs->sortByDesc('created_at') as $index => $pesananLog)
                                         <div class="accordion" id="hasilriwayat{{ $index }}">
@@ -151,7 +158,8 @@
                                 @endif
                             </div>
                         </div>
-                        @if ($ulasanstatus)
+
+                        @if ($hasil[0]['status'] === 'Selesai' || $hasil[0]['status'] === 'Dikirim')
                             <div class="card">
                                 @livewire('ulasan-section')
                             </div>

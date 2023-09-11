@@ -30,7 +30,7 @@
                             <th>
                                 Kode Pesanan
                             </th>
-                            <th>Rating</th>
+                            <th>Nilai</th>
                             <th>
                                 Komentar
                             </th>

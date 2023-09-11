@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pesanan;
 use App\Models\PesananLogs;
 use App\Models\Ulasan;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,14 @@ class AdminController extends Controller
     public function profil(){
         return view('admin.myprofile');
     } 
-
+    public function updateprofil(Request $request){
+        $profil = User::find($request->idnya);
+        $profil->name = $request->nama ;
+        $profil->username = $request->username ;
+        $profil->email = $request->email;
+        $profil->save();
+        return back();
+    }
     public function ulasan(){
         $ulasan = Ulasan::with('Pesanan')->paginate(5);
         return view('admin.ulasantable', compact('ulasan'));
@@ -79,6 +87,7 @@ class AdminController extends Controller
         $riwayat->pesanan()->associate($pesanan);
         $riwayat->qtys = $request->qty_hasil;
         $riwayat->riwayat = $request->tahap_hasil;
+        $riwayat->id_admin = $request->id_admin;
         $riwayat->save();
         // return dd($riwayat);
         return redirect()->back()->with('sukses','Status berhasil ditambahkan');
@@ -103,6 +112,11 @@ class AdminController extends Controller
         // return dd($pesananlogs);
     }
 
+    public function deletestatus(Request $request){
+        PesananLogs::find($request->iddelete)->delete();
+        return back()->with('sukses','Data berhasil dihapus');
+    }
+    
     public function tambahstatus($id){
         $pesanan = Pesanan::find($id);
         return view('admin.tambahstatus', compact('pesanan'));

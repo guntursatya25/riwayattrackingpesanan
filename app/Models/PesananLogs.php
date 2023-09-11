@@ -14,6 +14,7 @@ class PesananLogs extends Model
         'pesanan_id',
         'qtys',
         'riwayat',
+        'id_admin',
     ];
     public function pesanan()
     {

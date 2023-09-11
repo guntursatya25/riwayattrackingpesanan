@@ -22,6 +22,8 @@ Route::prefix('admin')->controller(AdminController::class)->middleware('auth')->
     Route::post('order','store')->name('pesanan.store');
     Route::post('statusorder','actiontambahstatus')->name('actionTambahStatus');
     Route::post('statusorderupdate','actionupdatestatus')->name('actionUpdateStatus');
+    Route::post('statusorderdelete','deletestatus')->name('actionDeleteStatus');
+    Route::post('profil','updateprofil')->name('actionupdateprofil');
 });
 
 
